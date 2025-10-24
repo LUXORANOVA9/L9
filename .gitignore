@@ -1,0 +1,6 @@
+﻿# large assets and temp
+*.vhdx
+*.zip
+*.crdownload
+assets_storage/
+.env

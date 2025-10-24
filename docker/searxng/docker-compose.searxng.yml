@@ -1,0 +1,29 @@
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: luxor-searxng
+    ports:
+      - "8080:8080"
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8080/
+      - SEARXNG_SECRET_KEY=luxor-ai-cua-secret-key-12345
+    restart: unless-stopped
+    networks:
+      - luxor-network
+
+  redis:
+    image: redis:alpine
+    container_name: luxor-searxng-redis
+    command: redis-server --save 30 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - luxor-network
+
+volumes:
+  redis_data:
+
+networks:
+  luxor-network:
+    driver: bridge
